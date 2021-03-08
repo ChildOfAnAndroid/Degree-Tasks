@@ -22,6 +22,9 @@ int numDouble(int num) {
 
 // QUESTION TWO
 //code for question two here
+void refNumDouble(int &num) {
+    num = num*2;
+}
 
 // QUESTION THREE
 //code for question three here
@@ -49,8 +52,12 @@ int numDouble(int num) {
 
 int main() {
     int question1;
-    question1 = numDouble (5); //Number in brackets will be doubled
+    question1 = numDouble(5); //Number in brackets will be doubled
     cout << "Question 1: " << question1 << endl;
+    
+    int question2;
+    question2 = refNumDouble(5); //Number in brackets will be doubled
+    cout << "Question 2: " << question2 << endl;
 
 // For Question 6
 //    std::array<float,8> testData = {-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4};
