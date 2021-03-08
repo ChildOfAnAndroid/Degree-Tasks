@@ -14,16 +14,16 @@ using namespace std;
 
 // QUESTION ONE
 //code for question one here
-int numDouble(int num) {
-    int dub;
-    dub = num*2;
-    return dub;
+int numDouble(int num) { //initialise variable to be doubled
+    int dub; //initialise doubled variable
+    dub = num*2; //the doubled value is two times the initial value
+    return dub; //return the doubled value
 }
 
 // QUESTION TWO
 //code for question two here
-void refNumDouble(int &num) {
-    num = num*2;
+void refNumDouble(int &num) { //initialise referenced value to be doubled
+    num = num*2; //the doubled value is two times the initial value
 }
 
 // QUESTION THREE
