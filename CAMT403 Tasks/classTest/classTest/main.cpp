@@ -43,9 +43,17 @@ double rectangleArea(double a) {
 }
 
 // QUESTION FIVE
+/* psuedocode --
+   loop through all elements in array
+   compare each value to the one after it, saving that to a 'smallest value' variable if it is smaller
+   return the smallest value
+    */
 //code for question FIVE here
-int smallestValue(array<int, 10>) {
-    
+int smallestValue(array<int, 10> numbers = {5,8,4,2,6,89,1,2,8,64}) {
+    for(int arrayValue = 0; arrayValue < 10; arrayValue++) { //loop through all elements in array
+        cout << arrayValue << endl;
+    }
+    return 0;
 }
 
 // QUESTION SIX
@@ -73,6 +81,7 @@ int main() {
     /*int question2;
     question2 = refNumDouble(5); //Number in brackets will be doubled
     cout << "Question 2: " << question2 << endl;*/
+    cout << "Question 2: " << endl;
     
     //QUESTION 3 (complete) (unchecked)
     double question3; //using double for this variable so that it outputs as a double
@@ -82,9 +91,12 @@ int main() {
     //QUESTION 4 (complete) (unchecked)
     double question4; //using double for this variable so that it outputs as a double
     question4 = rectangleArea(3.668); //Overloads rectangleArea function if using only one side represnting a square
-    cout << "Question 3: " << question4 << endl; //Output area of square using side a
+    cout << "Question 4: " << question4 << endl; //Output area of square using side a
     
     //QUESTION 5
+    //int question5;
+    //question5 = smallestValue(array<int,10>);
+    //cout << "Question 5: " << question5 << endl;
 
 // For Question 6
 //    std::array<float,8> testData = {-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4};
