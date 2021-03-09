@@ -42,18 +42,21 @@ double rectangleArea(double a) {
     return area;
 }
 
-// QUESTION FIVE
+// QUESTION FIVE (completed) (unchecked)
 /* psuedocode --
    loop through all elements in array
    compare each value to the one after it, saving that to a 'smallest value' variable if it is smaller
    return the smallest value
     */
 //code for question FIVE here
-int smallestValue(array<int, 10> numbers = {5,8,4,2,6,89,1,2,8,64}) {
-    for(int arrayValue = 0; arrayValue < 10; arrayValue++) { //loop through all elements in array
-        cout << arrayValue << endl;
+int smallestValue(array<int, 10> numbers) {
+    int smallestResult = INT_MAX; //initialise smallest result as high as possible, so any new value is smaller
+    for(int index = 0; index < 10; index++) { //loop through all elements in array
+        if (numbers[index] < smallestResult) { //if the current array value is smaller than current smallest....
+            smallestResult = numbers[index]; //save that variable as the new smallest
+        }
     }
-    return 0;
+    return smallestResult;
 }
 
 // QUESTION SIX
@@ -93,10 +96,10 @@ int main() {
     question4 = rectangleArea(3.668); //Overloads rectangleArea function if using only one side represnting a square
     cout << "Question 4: " << question4 << endl; //Output area of square using side a
     
-    //QUESTION 5
-    //int question5;
-    //question5 = smallestValue(array<int,10>);
-    //cout << "Question 5: " << question5 << endl;
+    //QUESTION 5 (complete) (unchecked)
+    int question5; //integer output
+    question5 = smallestValue({5,8,4,255,6,89,4,37,8,64}); //The 10 values between curly brackets become the array
+    cout << "Question 5: " << question5 << endl; //Output lowest value in the above array
 
 // For Question 6
 //    std::array<float,8> testData = {-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4};
