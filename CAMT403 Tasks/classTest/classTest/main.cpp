@@ -61,9 +61,39 @@ int smallestValue(array<int, 10> numbers) {
 
 // QUESTION SIX
 //code for question SIX here
+float audioRMS (array<float,8> testData) {
+    
+    float squareTotalRMS = 0;
+    float meanTotalRMS = 0;
+    float resultRMS = 0;
+    
+    for (int index = 0; index < 8; index++){
+            squareTotalRMS += pow(testData[index],2);
+        } //square each individual value of the signal
+    
+    meanTotalRMS = squareTotalRMS/8; //calculate the average(mean) squared signal
+    
+    resultRMS = sqrt(meanTotalRMS); //calculate the square root of the mean
+    
+    return resultRMS; //return the RMS of the signal
+}
 
 // QUESTION SEVEN
 //code for question seven here
+int arraySort (array<int,10> numbers) { //void type as it does not return a result, but sorts the list directly
+    bool swapNumber = true; //initialise as if the last number has been swapped
+    if(swapNumber == true) { //If the last number in the list was changed (or this is the first number) loop
+        swapNumber = false; //The current number has not been changed
+        for (int index = 0; index < 10; index++) { //Loop through each number in the array
+            if (numbers[index] > numbers[index+1]) { //if the current number is bigger than the next array number
+                swap(numbers[index], numbers[index+1]); //swap them
+                swapNumber = true;
+            }
+        }
+    }
+    return 0;
+}
+
 
 // QUESTION EIGHT
 //void FizzBuzz()
@@ -100,10 +130,26 @@ int main() {
     int question5; //integer output
     question5 = smallestValue({5,8,4,255,6,89,4,37,8,64}); //The 10 values between curly brackets become the array
     cout << "Question 5: " << question5 << endl; //Output lowest value in the above array
+    
+    //QUESTION 6 (complete) (unchecked)
+    float question6; //float output
+    question6 = audioRMS({-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4}); //8 values in curly brackets are audio test data
+    cout << "Question 6: " << question6 << endl; //Output the RMS result for the above test data
 
 // For Question 6
 //    std::array<float,8> testData = {-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4};
+    
+    //QUESTION 7
+    int question7; //integer output
+    question7 = arraySort({5,8,4,255,6,89,4,37,8,64}); //The 10 values between curly brackets will be sorted
+    cout << "Question 7: ";
+    for(int index = 0; index < 10; index++) {
+        cout << /* how do i access the sorted array!? << */ ", "; //output each number of the sorted array
+    }
+    cout << endl;
 
     return 0;
+    
+    //QUESTION 8
 }
 
