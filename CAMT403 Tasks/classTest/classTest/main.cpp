@@ -22,8 +22,9 @@ int numDouble(int num) { //initialise variable to be doubled
 
 // QUESTION TWO
 //code for question two here
-void refNumDouble(int &num) { //initialise referenced value to be doubled
-    num = num*2; //the doubled value is two times the initial value
+void refNumDouble(int &referencedNum) { //initialise referenced value to be doubled
+    referencedNum = referencedNum*2; //the doubled value is two times the initial value
+    cout << referencedNum;
 }
 
 // QUESTION THREE (complete) (unchecked)
@@ -80,26 +81,42 @@ float audioRMS (array<float,8> testData) {
 
 // QUESTION SEVEN
 //code for question seven here
-int arraySort (array<int,10> numbers) { //void type as it does not return a result, but sorts the list directly
+void arraySort (array<int,10> numbers) { //void type as it does not return a result, but sorts the list directly
     bool swapNumber = true; //initialise as if the last number has been swapped
-    if(swapNumber == true) { //If the last number in the list was changed (or this is the first number) loop
+    
+    while(swapNumber == true) { //while the last number in the list was changed (or this is the first number), loop
         swapNumber = false; //The current number has not been changed
-        for (int index = 0; index < 10; index++) { //Loop through each number in the array
+        for (int index = 0; index < 9; index++) { //Loop through each number in the array
             if (numbers[index] > numbers[index+1]) { //if the current number is bigger than the next array number
                 swap(numbers[index], numbers[index+1]); //swap them
                 swapNumber = true;
             }
         }
     }
-    return 0;
+    for(int i = 0; i < 10; i++) {
+        cout << numbers[i] << ", "; //output each number of the sorted array
+    }
+    cout << endl;
 }
 
-
-// QUESTION EIGHT
-//void FizzBuzz()
-//{
+// QUESTION EIGHT (complete) (unchecked)
 //code for question eight here
-//}
+
+void fizzBuzz() {
+    for(int number = 1; number <= 100; number++) {
+        string output = ""; //empty space to indicate when number is not divisible by 3 or 5.
+        if (number % 3 == 0) {
+            output += "Fizz"; //If number is divisible by 3, output Fizz
+        }
+        if (number % 5 == 0) {
+            output += "Buzz"; //If number is divisible by 5, add Buzz to that output
+        }
+        if(output == "") { //If nothing has been added to the output, just output the original number
+            output = to_string(number); //converts the integer to a string to allow mixing with text in output
+        }
+        cout << output << endl; //Outputs the list of numbers with Fizz/Buzz/FizzBuzz replacements
+    }
+}
 
 
 
@@ -111,10 +128,9 @@ int main() {
     cout << "Question 1: " << question1 << endl;
     
     //QUESTION 2
-    /*int question2;
-    question2 = refNumDouble(5); //Number in brackets will be doubled
-    cout << "Question 2: " << question2 << endl;*/
-    cout << "Question 2: " << endl;
+    cout << "Question 2: ";
+    refNumDouble; //Calls the refNumDouble function
+    cout << endl;
     
     //QUESTION 3 (complete) (unchecked)
     double question3; //using double for this variable so that it outputs as a double
@@ -139,17 +155,16 @@ int main() {
 // For Question 6
 //    std::array<float,8> testData = {-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4};
     
-    //QUESTION 7
-    int question7; //integer output
-    question7 = arraySort({5,8,4,255,6,89,4,37,8,64}); //The 10 values between curly brackets will be sorted
+    //QUESTION 7 (complete) (unchecked)
     cout << "Question 7: ";
-    for(int index = 0; index < 10; index++) {
-        cout << /* how do i access the sorted array!? << */ ", "; //output each number of the sorted array
-    }
-    cout << endl;
-
-    return 0;
+    arraySort({5,8,4,255,6,89,4,37,8,64}); //Calls the arraySort function
     
-    //QUESTION 8
+    //QUESTION 8 (complete) (unchecked)
+    cout << "Question 8: " << endl;
+    fizzBuzz(); //Calls the FizzBuzz Function
+    
+    
+    
+    return 0;
 }
 
