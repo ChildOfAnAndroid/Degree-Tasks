@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
     audioBuffer.setSampleRate(sampleRate); //Sets the sample rate
     audioBuffer.setAudioBufferSize(1, numSamples); //Sets the size of the audio buffer using numSamples variable, and number of channels. Similar to an array
     
-    //Putting things into Audio Buffer (pick one, comment out others)
+    //Putting Sounds into Audio Buffer (pick one, comment out others)
     //generateSineWave(audioBuffer, sampleRate, frequency, amplitude);
     //generateSquareWave(audioBuffer, halfPeriod, frequency, amplitude, sampleValue);
     generateFMSineWave(audioBuffer, sampleRate, frequency, frequency2, amplitude, sampleValue);

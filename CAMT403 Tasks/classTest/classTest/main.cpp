@@ -20,9 +20,9 @@ int numDouble(int num) { //initialise variable to be doubled
     return dub; //return the doubled value
 }
 
-// QUESTION TWO
+// QUESTION TWO (complete) (unchecked)
 //code for question two here
-void refNumDouble(int &referencedNum ) { //initialise referenced value to be doubled
+void refNumDouble(int& referencedNum) { //initialise referenced value to be doubled
     referencedNum = referencedNum*2; //the doubled value is two times the initial value
     cout << referencedNum;
 }
@@ -127,9 +127,10 @@ int main() {
     question1 = numDouble(5); //Number in brackets will be doubled
     cout << "Question 1: " << question1 << endl;
     
-    //QUESTION 2
+    //QUESTION 2 (complete) (unchecked)
+    int value = 3;
     cout << "Question 2: ";
-    refNumDouble; //Calls the refNumDouble function
+    refNumDouble(value); //Calls the refNumDouble function
     cout << endl;
     
     //QUESTION 3 (complete) (unchecked)
