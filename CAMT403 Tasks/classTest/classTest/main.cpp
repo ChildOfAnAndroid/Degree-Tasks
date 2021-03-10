@@ -22,7 +22,7 @@ int numDouble(int num) { //initialise variable to be doubled
 
 // QUESTION TWO
 //code for question two here
-void refNumDouble(int &referencedNum) { //initialise referenced value to be doubled
+void refNumDouble(int &referencedNum ) { //initialise referenced value to be doubled
     referencedNum = referencedNum*2; //the doubled value is two times the initial value
     cout << referencedNum;
 }
