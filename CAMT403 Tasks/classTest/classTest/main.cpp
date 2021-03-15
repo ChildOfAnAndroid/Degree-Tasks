@@ -12,7 +12,7 @@
 using namespace std;
 
 
-// QUESTION ONE (complete) (unchecked)
+// QUESTION ONE
 //code for question one here
 int numDouble(int num) { //initialise variable to be doubled
     int dub; //initialise doubled variable
@@ -20,14 +20,14 @@ int numDouble(int num) { //initialise variable to be doubled
     return dub; //return the doubled value
 }
 
-// QUESTION TWO (complete) (unchecked)
+// QUESTION TWO
 //code for question two here
 void refNumDouble(int& referencedNum) { //initialise referenced value to be doubled
     referencedNum = referencedNum*2; //the doubled value is two times the initial value
     cout << referencedNum;
 }
 
-// QUESTION THREE (complete) (unchecked)
+// QUESTION THREE
 //code for question three here
 double rectangleArea(double a, double b) { //initialise two double variables in a double function
     double area;
@@ -35,7 +35,7 @@ double rectangleArea(double a, double b) { //initialise two double variables in 
     return area;
 }
 
-// QUESTION FOUR (complete) (unchecked)
+// QUESTION FOUR
 //code for question four here
 double rectangleArea(double a) {
     double area;
@@ -43,7 +43,7 @@ double rectangleArea(double a) {
     return area;
 }
 
-// QUESTION FIVE (completed) (unchecked)
+// QUESTION FIVE
 /* psuedocode --
    loop through all elements in array
    compare each value to the one after it, saving that to a 'smallest value' variable if it is smaller
@@ -99,7 +99,7 @@ void arraySort (array<int,10> numbers) { //void type as it does not return a res
     cout << endl;
 }
 
-// QUESTION EIGHT (complete) (unchecked)
+// QUESTION EIGHT
 //code for question eight here
 
 void fizzBuzz() {
@@ -122,33 +122,33 @@ void fizzBuzz() {
 
 
 int main() {
-    //QUESTION 1 (complete) (unchecked)
+    //QUESTION 1
     int question1;
     question1 = numDouble(5); //Number in brackets will be doubled
     cout << "Question 1: " << question1 << endl;
     
-    //QUESTION 2 (complete) (unchecked)
+    //QUESTION 2
     int value = 3;
     cout << "Question 2: ";
     refNumDouble(value); //Calls the refNumDouble function
     cout << endl;
     
-    //QUESTION 3 (complete) (unchecked)
+    //QUESTION 3
     double question3; //using double for this variable so that it outputs as a double
     question3 = rectangleArea(5.33,3.56); //Two numbers in brackets are sides a and b of a rectangle
     cout << "Question 3: " << question3 << endl; //Output area of rectangle using sides a and b
     
-    //QUESTION 4 (complete) (unchecked)
+    //QUESTION 4
     double question4; //using double for this variable so that it outputs as a double
     question4 = rectangleArea(3.668); //Overloads rectangleArea function if using only one side represnting a square
     cout << "Question 4: " << question4 << endl; //Output area of square using side a
     
-    //QUESTION 5 (complete) (unchecked)
+    //QUESTION 5
     int question5; //integer output
     question5 = smallestValue({5,8,4,255,6,89,4,37,8,64}); //The 10 values between curly brackets become the array
     cout << "Question 5: " << question5 << endl; //Output lowest value in the above array
     
-    //QUESTION 6 (complete) (unchecked)
+    //QUESTION 6
     float question6; //float output
     question6 = audioRMS({-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4}); //8 values in curly brackets are audio test data
     cout << "Question 6: " << question6 << endl; //Output the RMS result for the above test data
@@ -156,13 +156,13 @@ int main() {
 // For Question 6
 //    std::array<float,8> testData = {-0.9, 0.8, -0.6, 0.4, 0.1, 0.6, 0.2, 0.4};
     
-    //QUESTION 7 (complete) (unchecked)
+    //QUESTION 7
     cout << "Question 7: ";
     arraySort({5,8,4,255,6,89,4,37,8,64}); //Calls the arraySort function
     
-    //QUESTION 8 (complete) (unchecked)
+    //QUESTION 8
     cout << "Question 8: " << endl;
-    fizzBuzz(); //Calls the FizzBuzz Function
+    fizzBuzz(); //Calls the fizzBuzz Function
     
     
     
