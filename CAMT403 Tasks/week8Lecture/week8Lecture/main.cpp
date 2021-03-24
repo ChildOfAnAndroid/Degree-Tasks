@@ -27,6 +27,13 @@ void makeKick(AudioFile<float>& audioBuffer)
     applyEnvelopeAR(audioBuffer, sampleRate, 0.0f, 0.16f);
 }
 
+void addSoundAtTime(AudioFile<float>& outputBuffer, const AudioFile<float>& sampleBuffer, timeInSamples)
+{
+    for (int sample = 0; sample < sampleBuffer.getNumSamplesPerChannel(); sample++)
+    {
+        outputBuffer.samples[0][timeInSamples+sample] += sampleBuffer.samples[0][sample]
+    }
+}
 
 int main() {
 
@@ -49,21 +56,35 @@ int main() {
     
     float BPM = 120.0f;
     int numBar = 16;
-    const int beatsInbar = 8;
+    const int beatsInBar = 8;
     
-    std::array<bool,beatsInbar> kickTime =   {1,0,0,1,0,0,1,0};
-    std::array<bool,beatsInbar> snareTime =  {1,0,0,0,1,0,1,0};
-    std::array<bool,beatsInbar> hatTime =    {0,1,1,0,0,0,1,1};
+    std::array<bool,beatsInBar> kickTime =   {1,0,0,1,0,0,1,0};
+    std::array<bool,beatsInBar> snareTime =  {1,0,0,0,1,0,1,0};
+    std::array<bool,beatsInBar> hatTime =    {0,1,1,0,0,0,1,1};
     
     // How long is a beat?
     float beatTimeInSeconds = 1.0/(BPM / 60.0);
     int beatTimeInSamples = (int) beatTimeInSeconds * sampleRate;
-    int outputBufferLength = beatTimeInSamples * beatsInbar * numBar;
+    int outputBufferLength = beatTimeInSamples * beatsInBar * numBar;
     
     
     AudioFile<float> outputBuffer;
     outputBuffer.setSampleRate(sampleRate);
     outputBuffer.setAudioBufferSize(1, outputBufferLength);
+    
+    //Start constructing audio output buffer
+    for(int bar = 0; bar < numBar; bar++)
+    {
+        for(int beat = 0; beat < beatsInBar; beat++)
+        {
+            currentTimeInSamples = beat * beatTimeInSamples + bar*beatsInBar
+            
+            if (kickTime[beat] == true)
+            {
+                addSoundAtTime(outputBuffer, kickBuffer, currentTimeInSamples);
+            }
+        }
+    }
     
     
 
