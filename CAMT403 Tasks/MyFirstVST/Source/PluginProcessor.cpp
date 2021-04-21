@@ -135,7 +135,9 @@ void MyFirstVstAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-
+    //Creating plugin to control gain
+    buffer.applyGain(0.5); //0.5 halves the amplitude
+    
 }
 
 //==============================================================================
