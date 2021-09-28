@@ -55,8 +55,14 @@ int main (int argc, char* argv[]){
         std::cout << "The note ";
         std::cout << note;
             //if yes then 'is' if no then 'is not'
-        if(note == CMaj[0]){
-                std::cout << "is";
+        if(note == CMaj[0]
+            ||note == CMaj[1]
+            ||note == CMaj[2]
+            ||note == CMaj[3]
+            ||note == CMaj[4]
+            ||note == CMaj[5]
+            ||note == CMaj[6]){
+                std::cout << " is";
             }
             else{
                 std::cout << "is not";
