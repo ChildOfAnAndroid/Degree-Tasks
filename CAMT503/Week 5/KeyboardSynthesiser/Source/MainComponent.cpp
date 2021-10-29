@@ -62,7 +62,11 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
     
     keyboardState.processNextMidiBuffer (incomingMidi, 0, bufferToFill.numSamples, true);
     
-    synth.renderNextBlock (*bufferToFill.buffer, incomingMidi, 0, bufferToFill.numSamples);
+    for(auto metadata : incomingMidi) //this prints into the terminal
+        if (metadata.numBytes == 3)
+            juce::Logger::writeToLog(metadata.getMessage().getDescription());
+    
+    //synth.renderNextBlock (*bufferToFill.buffer, incomingMidi, 0, bufferToFill.numSamples);
     
 }
 
