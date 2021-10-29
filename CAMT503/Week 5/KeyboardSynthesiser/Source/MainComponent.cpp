@@ -1,7 +1,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() //CONSTRUCTOR (has same name as file)
+MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
 {
     // Make sure you set the size of the component after
     // you add any child components.
@@ -21,6 +21,28 @@ MainComponent::MainComponent() //CONSTRUCTOR (has same name as file)
     }
     
     addAndMakeVisible(&keyboardComponent);
+    
+    formatManager.registerBasicFormats();
+    
+    synth.addVoice(new juce::SamplerVoice());
+    
+    juce::File file("/Users/cmale/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/cello.wav");
+    juce::FileInputStream inputStream(file);
+    
+    std::unique_ptr<juce::AudioFormatReader> audioReader(formatManager.createReaderFor(file));
+    
+    juce::BigInteger allNotes;
+    allNotes.setRange(0, 128, true);
+    
+    synth.clearSounds();
+    synth.addSound(new juce::SamplerSound("Cello Sound",
+                                          *audioReader,
+                                          allNotes,
+                                          74, //Root MIDI Note
+                                          0.1, //Attack Time
+                                          0.1, //Release Time
+                                          10.0 //Maximum Sample Length
+                                          ));
     
 }
 
@@ -66,7 +88,7 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
         if (metadata.numBytes == 3)
             juce::Logger::writeToLog(metadata.getMessage().getDescription());
     
-    //synth.renderNextBlock (*bufferToFill.buffer, incomingMidi, 0, bufferToFill.numSamples);
+    synth.renderNextBlock (*bufferToFill.buffer, incomingMidi, 0, bufferToFill.numSamples);
     
 }
 
