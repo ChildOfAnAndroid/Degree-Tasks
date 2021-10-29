@@ -26,7 +26,7 @@ MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
     
     synth.addVoice(new juce::SamplerVoice());
     
-    juce::File file("/Users/cmale/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/cello.wav");
+    juce::File file("/Users/cmale/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/c-guitar.wav");
     juce::FileInputStream inputStream(file);
     
     std::unique_ptr<juce::AudioFormatReader> audioReader(formatManager.createReaderFor(file));
@@ -43,6 +43,9 @@ MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
                                           0.1, //Release Time
                                           10.0 //Maximum Sample Length
                                           ));
+    
+    //addAndMakeVisible (harmoniseButton);
+    //harmoniseButton.onClick = [this] { updateToggleState (*harmoniseButton, "Harmonise");};
     
 }
 
