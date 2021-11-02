@@ -30,8 +30,11 @@ MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
     formatManager.registerBasicFormats();
     
     synth.addVoice(new juce::SamplerVoice());
+    synth.addVoice(new juce::SamplerVoice());
+    synth.addVoice(new juce::SamplerVoice());
+    synth.addVoice(new juce::SamplerVoice());
     
-    juce::File file("/Users/charis/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/c-guitar.wav"); //CHANGE DEPENDING ON WHAT COMPUTER YOU ARE USING
+    juce::File file("/Users/charis/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/piano-A3.wav"); //CHANGE DEPENDING ON WHAT COMPUTER YOU ARE USING
     juce::FileInputStream inputStream(file);
     
     std::unique_ptr<juce::AudioFormatReader> audioReader(formatManager.createReaderFor(file));
@@ -93,7 +96,33 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
         if (metadata.numBytes == 3)
             juce::Logger::writeToLog(metadata.getMessage().getDescription());
     
-    synth.renderNextBlock (*bufferToFill.buffer, incomingMidi, 0, bufferToFill.numSamples);
+    std::vector<juce::MidiMessage> harmony;
+    
+    for(auto metadata : incomingMidi)
+        if (metadata.numBytes == 3)
+        {
+            if (metadata.getMessage().isNoteOn())
+            {
+                harmony.push_back(metadata.getMessage());
+            }
+            juce::Logger::writeToLog(metadata.getMessage().getDescription());
+        }
+    
+    int temp;
+    
+    if(isHarmonyEnabled)
+    {
+        for (auto h: harmony)
+        {
+            temp = h.getNoteNumber();
+            h.setNoteNumber(temp + 5);
+            h.setVelocity(0.99);
+            juce::Logger::writeToLog("Harmonised Data: " + h.getDescription());
+            incomingMidi.addEvent(h, 0);
+        }
+    }
+    
+    synth.renderNextBlock (*bufferToFill.buffer, incomingMidi, 0, bufferToFill.numSamples); //Ends block
     
 }
 
