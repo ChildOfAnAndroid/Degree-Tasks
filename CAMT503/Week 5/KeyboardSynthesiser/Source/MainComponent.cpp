@@ -2,7 +2,7 @@
 
 //==============================================================================
 MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
-    : harmoniseButton("Harmonise"), isHarmonyEnabled(false) //Initialising variables
+    : harmoniseButton("Harmonise"), isHarmonyEnabled(false), harmonyInterval(5) //Initialising variables
 {
     
     // Make sure you set the size of the component after
@@ -24,8 +24,17 @@ MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
     
     addAndMakeVisible(&keyboardComponent);
     addAndMakeVisible(&harmoniseButton);
+    addAndMakeVisible(&harmonyDial);
     
+    //HARMONISE BUTTON
     harmoniseButton.onClick = [this] { updateToggleState (&harmoniseButton, "Harmonise");}; //event handler
+    
+    //HARMONY DIAL
+    harmonyDial.setSliderStyle(juce::Slider::SliderStyle::Rotary);
+    harmonyDial.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 25, 25);
+    harmonyDial.setRange(0, 12, 1);
+    harmonyDial.setValue(harmonyInterval);
+    harmonyDial.addListener(this);
     
     formatManager.registerBasicFormats();
     
@@ -115,7 +124,7 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
         for (auto h: harmony)
         {
             temp = h.getNoteNumber();
-            h.setNoteNumber(temp + 5);
+            h.setNoteNumber(temp + harmonyInterval);
             h.setVelocity(0.99);
             juce::Logger::writeToLog("Harmonised Data: " + h.getDescription());
             incomingMidi.addEvent(h, 0);
@@ -151,6 +160,7 @@ void MainComponent::resized()
     
     keyboardComponent.setBounds(8, 96, getWidth() - 16, 64);
     harmoniseButton.setBounds(8, 270, getWidth() / 6, 20);
+    harmonyDial.setBounds(100, 170, getWidth() / 6, 100);
     
 }
 
@@ -160,4 +170,12 @@ void MainComponent::updateToggleState(juce::Button* button, juce::String name) /
     
     juce::String harmonyString = isHarmonyEnabled ? "ON" : "OFF"; //conditional operator
     juce::Logger::writeToLog("Harmony is " + harmonyString);
+}
+
+void MainComponent::sliderValueChanged(juce::Slider* slider)
+{
+    if (slider == &harmonyDial)
+    {
+        harmonyInterval = harmonyDial.getValue();
+    }
 }

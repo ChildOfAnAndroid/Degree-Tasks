@@ -7,7 +7,7 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent  : public juce::AudioAppComponent
+class MainComponent  : public juce::AudioAppComponent, public juce::Slider::Listener
 {
 public:
     //==============================================================================
@@ -40,6 +40,10 @@ private:
     juce::ToggleButton harmoniseButton;
     void updateToggleState(juce::Button* button, juce::String name);
     bool isHarmonyEnabled; //tracks button state
+    
+    juce::Slider harmonyDial;
+    int harmonyInterval;
+    void sliderValueChanged(juce::Slider* slider) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
