@@ -2,7 +2,9 @@
 
 //==============================================================================
 MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
+    : harmoniseButton("Harmonise"), isHarmonyEnabled(false) //Initialising variables
 {
+    
     // Make sure you set the size of the component after
     // you add any child components.
     setSize (800, 600);
@@ -21,12 +23,15 @@ MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
     }
     
     addAndMakeVisible(&keyboardComponent);
+    addAndMakeVisible(&harmoniseButton);
+    
+    harmoniseButton.onClick = [this] { updateToggleState (&harmoniseButton, "Harmonise");}; //event handler
     
     formatManager.registerBasicFormats();
     
     synth.addVoice(new juce::SamplerVoice());
     
-    juce::File file("/Users/cmale/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/c-guitar.wav");
+    juce::File file("/Users/charis/Documents/GitHub/Degree-Tasks/CAMT503/Week 5/KeyboardSynthesiser/Sound Samples/c-guitar.wav"); //CHANGE DEPENDING ON WHAT COMPUTER YOU ARE USING
     juce::FileInputStream inputStream(file);
     
     std::unique_ptr<juce::AudioFormatReader> audioReader(formatManager.createReaderFor(file));
@@ -43,9 +48,6 @@ MainComponent::MainComponent() //this is the CONSTRUCTOR (has same name as file)
                                           0.1, //Release Time
                                           10.0 //Maximum Sample Length
                                           ));
-    
-    //addAndMakeVisible (harmoniseButton);
-    //harmoniseButton.onClick = [this] { updateToggleState (*harmoniseButton, "Harmonise");};
     
 }
 
@@ -119,5 +121,14 @@ void MainComponent::resized()
     // update their positions.
     
     keyboardComponent.setBounds(8, 96, getWidth() - 16, 64);
+    harmoniseButton.setBounds(8, 270, getWidth() / 6, 20);
     
+}
+
+void MainComponent::updateToggleState(juce::Button* button, juce::String name) //defining custom function from the .h file
+{
+    isHarmonyEnabled = button->getToggleState();
+    
+    juce::String harmonyString = isHarmonyEnabled ? "ON" : "OFF"; //conditional operator
+    juce::Logger::writeToLog("Harmony is " + harmonyString);
 }

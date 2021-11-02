@@ -36,6 +36,10 @@ private:
     juce::MidiMessageCollector midiCollector;
     
     juce::AudioFormatManager formatManager;
+    
+    juce::ToggleButton harmoniseButton;
+    void updateToggleState(juce::Button* button, juce::String name);
+    bool isHarmonyEnabled; //tracks button state
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
