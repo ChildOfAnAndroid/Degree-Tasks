@@ -8,7 +8,12 @@
 #include <iostream>
 using std::string;
 
-class Employee {
+class AbstractEmployee {
+    //contract has only one rule, whatever class signs contract must implement the below method
+    virtual void AskForPromotion()=0; //virtual function/abstract function
+};
+
+class Employee:AbstractEmployee {
 private: //properties are hidden/encapsulated within the class
     string Name;
     string Company;
@@ -52,6 +57,15 @@ public:
         Company = company;
         Age = age;
     }
+    
+    //Calling the virtual function
+    void AskForPromotion(){
+        //People older than 30 get promoted
+        if(Age >= 30)
+            std::cout << Name << " got promoted" << std::endl;
+        else
+            std::cout << Name << ", sorry no promotion for you!" << std::endl;
+    }
 };
 
 
@@ -64,8 +78,11 @@ int main() {
     Employee employee2 = Employee("John", "Amazon", 35);
     employee2.IntroduceYourself();
     
-    employee1.setAge(9); //calling the setter
+    employee1.setAge(9); //calling the setter, wont change if age is under 18
     std::cout << employee1.getName() << " is " << employee1.getAge() << " years old" << std::endl; //calling the getter
+    
+    employee1.AskForPromotion();
+    employee2.AskForPromotion();
     
 }
 
