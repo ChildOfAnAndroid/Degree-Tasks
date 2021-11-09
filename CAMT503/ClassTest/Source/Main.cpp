@@ -18,10 +18,10 @@ protected:
     
 public:
     void setGain (float g) {
-        
+        inputGain = g;
     }
     void setPresetName (std::string n) {
-        
+        presetName = n;
     }
     
     //constructor
@@ -40,7 +40,17 @@ protected:
     
 public:
     float getRoomVolume() {
-
+        return (roomLength*roomWidth)*roomHeight;
+    }
+    
+    Reverb(int length)
+        :SoundEffect(bufferSize){
+        
+    }
+    
+    Reverb(int length, int width, int height)
+        :SoundEffect(bufferSize){
+        
     }
 };
 
@@ -49,7 +59,8 @@ int main (int argc, char* argv[])
 {
 
     // ..your code goes here!
-
+    Reverb r1(int length);
+    Reverb r2(int length, int width, int height);
 
     return 0;
 }
