@@ -43,13 +43,13 @@ public:
         return (roomLength*roomWidth)*roomHeight;
     }
     
-    Reverb(int length)
-        :SoundEffect(bufferSize){
+   Reverb(int length) :public SoundEffect(bufferSize)
+        :roomLength(length){
         
     }
     
-    Reverb(int length, int width, int height)
-        :SoundEffect(bufferSize){
+    Reverb(int length, int width, int height) :public SoundEffect(bufferSize)
+        :roomLength(length), roomWidth(width), roomHeight(height){
         
     }
 };
