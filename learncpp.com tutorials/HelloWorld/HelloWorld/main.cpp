@@ -1,3 +1,7 @@
+//Treat Warnings as Errors
+//No compiler extensions
+//C++ 20
+
 #include <iostream>
 
 int main()
