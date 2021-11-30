@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="zMbnEH" name="SoundSynthesis" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="mbAsH8" name="SoundSynthesis">
     <GROUP id="{30E07E8E-5005-3E7B-00EC-FA4434DEE026}" name="Source">
       <FILE id="WsQuPg" name="PluginProcessor.cpp" compile="1" resource="0"

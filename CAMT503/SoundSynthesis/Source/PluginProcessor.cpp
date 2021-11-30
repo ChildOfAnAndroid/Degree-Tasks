@@ -22,6 +22,13 @@ SoundSynthesisAudioProcessor::SoundSynthesisAudioProcessor()
                        )
 #endif
 {
+    //Add voices and sound to the synth obejct
+    for (auto i - 0; i < 5; i++)
+    {
+        synth.addVoice(new SineWaveVoice());
+    }
+    
+    synth.addSound(new SineWaveSound());
 }
 
 SoundSynthesisAudioProcessor::~SoundSynthesisAudioProcessor()
@@ -95,6 +102,7 @@ void SoundSynthesisAudioProcessor::prepareToPlay (double sampleRate, int samples
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    synth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void SoundSynthesisAudioProcessor::releaseResources()
@@ -156,6 +164,11 @@ void SoundSynthesisAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
 
         // ..do something to the data...
     }
+    
+    auto audioBusBuffer = getBusBuffer(buffer, false, 0);
+    
+    synth.renderNextBlock(audioBusBuffer, midiMessages, 0, audioBusBuffer.getNumSamples());
+    
 }
 
 //==============================================================================
@@ -188,4 +201,110 @@ void SoundSynthesisAudioProcessor::setStateInformation (const void* data, int si
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new SoundSynthesisAudioProcessor();
+}
+
+bool SineWaveSound::appliesToNote (int midiNoteNumber)
+{
+    return true;
+}
+
+bool SineWaveSound::appliesToChannel (int midiChannel)
+{
+    return true;
+}
+
+SineWaveVoice::SineWaveVoice() : currentAngle(0.0), angleDelta(0.0), level(0.0), tailOff(0.0)
+{
+    
+}
+
+bool SineWaveVoice::canPlaySound (juce::SynthesiserSound* sound)
+{
+    return dynamic_cast<SineWaveSound*>(sound) != nullptr;
+    //if it is not successful, it is a null pointer
+}
+
+void SineWaveVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
+{
+    currentAngle = 0.0;
+    level = velocity * 0.25;
+    tailOff = 0.0;
+    
+    auto cyclesPerSecond = juce::MidiMessage::getMidiNoteInHertz(int noteNumber);
+    auto cyclesPerSample = cyclesPerSecond / getSampleRate(); //dividing frequency by sample rate
+    
+    angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
+}
+
+void SineWaveVoice::stopNote (float velocity, bool allowTailOff)
+{
+    if (allowTailOff)
+    {
+        if (tailOff == 0.0)
+        {
+            tailOff = 1.0;
+        }
+    }
+    else
+    {
+        clearCurrentNote();
+        angleDelta = 0.0;
+    }
+}
+
+void SineWaveVoice::pitchWheelMoved (int newPitchWheelValue)
+{
+    
+}
+
+void SineWaveVoice::controllerMoved (int controllerNumber, int newControllerValue)
+{
+    
+}
+
+void SineWaveVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
+{
+    if (angleDelta != 0.0)
+    {
+        if (tailOff > 0.0)
+        {
+            while (--numSamples >= 0)
+            {
+                auto currentSample = (float)(std::sin(currentAngle) * tailOff * level);
+                
+                for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
+                {
+                    outputBuffer.addSample(i, startSample, currentSample);
+                }
+                
+                currentAngle += angleDelta;
+                ++startSample;
+                
+                tailOff = tailOff * 0.99;
+                
+                if (tailOff <= 0.005)
+                {
+                    clearCurrentNote();
+                    angleDelta = 0.0;
+                    break;
+                }
+            }
+        }
+        
+        else
+        {
+            while (--numSamples >= 0)
+            {
+                auto currentSample = (float)(std::sin(currentAngle) * level);
+                
+                for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
+                {
+                    outputBuffer.addSample(i, startSample, currentSample);
+                }
+                
+                currentAngle += angleDelta;
+                ++startSample;
+            }
+        }
+    }
 }
