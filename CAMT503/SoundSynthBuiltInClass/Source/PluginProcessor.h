@@ -87,6 +87,8 @@ struct SineWaveVoice : public juce::SynthesiserVoice
         
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples) override;
     
+    int sign(double value) { return (value >= 0.0) ? 1 : -1; }
+    
     
 private:
     double currentAngle, angleDelta, level, tailOff;
