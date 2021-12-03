@@ -58,6 +58,8 @@ private:
     
     juce::Synthesiser synth;
     
+    juce::dsp::ProcessorChain<juce::dsp::Chorus<float>> fxChain;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundSynthAudioProcessor)
 };
 

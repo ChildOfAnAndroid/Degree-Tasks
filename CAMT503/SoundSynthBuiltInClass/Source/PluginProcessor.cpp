@@ -102,6 +102,9 @@ void SoundSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    
+    fxChain.prepare({sampleRate, (juce::uint32)samplesPerBlock, (juce::uint32)getTotalNumOutputChannels()});
+    
     synth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
@@ -168,6 +171,13 @@ void SoundSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto audioBusBuffer = getBusBuffer(buffer, false, 0);
     
     synth.renderNextBlock(audioBusBuffer, midiMessages, 0, audioBusBuffer.getNumSamples());
+    
+    //Adding fx to the audio block
+    auto block = juce::dsp::AudioBlock<float>(buffer);
+    auto blockToUse = block.getSubBlock((size_t)0, (size_t)buffer.getNumSamples());
+    auto contextToUse = juce::dsp::ProcessContextReplacing<float>(blockToUse);
+    
+    fxChain.process(contextToUse);
     
 }
 
