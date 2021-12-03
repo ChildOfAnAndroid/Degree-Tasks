@@ -206,6 +206,11 @@ void SoundSynthAudioProcessor::setStateInformation (const void* data, int sizeIn
     // whose contents will have been created by the getStateInformation() call.
 }
 
+void SoundSynthAudioProcessor::setChorusWetMix(float wetMix)
+{
+    fxChain.get<0>().setMix(wetMix);
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
