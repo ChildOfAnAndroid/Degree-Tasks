@@ -90,5 +90,7 @@ struct SineWaveVoice : public juce::SynthesiserVoice
     
 private:
     double currentAngle, angleDelta, level, tailOff;
+    
+    int pitchBendInterval;
 };
 // Go to PluginProcessor.cpp to define the functions.

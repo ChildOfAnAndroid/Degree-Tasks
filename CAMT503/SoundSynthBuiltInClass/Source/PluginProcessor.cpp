@@ -213,7 +213,7 @@ bool SineWaveSound::appliesToChannel (int midiChannel)
     return true;
 }
 
-SineWaveVoice::SineWaveVoice() : currentAngle(0.0), angleDelta(0.0), level(0.0), tailOff(0.0)
+SineWaveVoice::SineWaveVoice() : currentAngle(0.0), angleDelta(0.0), level(0.0), tailOff(0.0), pitchBendInterval(12.0)
 {
     
 }
@@ -260,6 +260,26 @@ void SineWaveVoice::pitchWheelMoved (int newPitchWheelValue)
     int maxValue = 16383;
     int minValue = 0;
     int meanValue = 8192;
+    
+    int note = getCurrentlyPlayingNote();
+    
+    auto cyclesPerSecond = juce::MidiMessage::getMidiNoteInHertz(note);
+    
+    if (newPitchWheelValue < 8192)
+    {
+        auto lowFreq = juce::MidiMessage::getMidiNoteInHertz(note - pitchBendInterval);
+        cyclesPerSecond = juce::jmap((float)newPitchWheelValue, (float)minValue, (float)meanValue, (float)lowFreq, (float)cyclesPerSecond);
+    }
+    
+    else if (newPitchWheelValue > 8192)
+    {
+        auto highFreq = juce::MidiMessage::getMidiNoteInHertz(note + pitchBendInterval);
+        cyclesPerSecond = juce::jmap((float)newPitchWheelValue, (float)meanValue, (float)maxValue, (float)cyclesPerSecond, (float)highFreq);
+    }
+    
+    auto cyclesPerSample = cyclesPerSecond / getSampleRate();
+    
+    angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
     
     juce::Logger::writeToLog("Pitch Wheel Value: " + std::to_string(newPitchWheelValue));
     
